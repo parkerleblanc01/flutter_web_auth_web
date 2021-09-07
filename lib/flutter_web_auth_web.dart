@@ -66,6 +66,7 @@ class FlutterWebAuthPlugin {
         _closePopup();
         return null;
       default:
+        _closePopup();
         throw PlatformException(
             code: 'Unimplemented',
             details: "The url_launcher plugin for web doesn't implement "
@@ -82,7 +83,7 @@ class FlutterWebAuthPlugin {
   }
 
   Future<String> _listen() async {
-    final event = await html.window.onMessage.first.timeout(Duration(minutes: 10));
+    final event = await html.window.onMessage.first.timeout(Duration(minutes: 5));
 
     if (event?.data.toString().contains('code=')) {
       return _login(event.data);
